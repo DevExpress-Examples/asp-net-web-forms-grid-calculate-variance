@@ -4,7 +4,7 @@ public partial class _Default : System.Web.UI.Page {
         if (!IsPostBack && !IsCallback)
             grid.ExpandAll();
     }
-    protected void grid_CustomUnboundColumnData(object sender, DevExpress.Web.ASPxGridView.ASPxGridViewColumnDataEventArgs e) {
+    protected void grid_CustomUnboundColumnData(object sender, DevExpress.Web.ASPxGridViewColumnDataEventArgs e) {
         if (e.Column.FieldName == "Variance") {
             decimal unitPrice = Convert.ToDecimal(e.GetListSourceFieldValue("UnitPrice"));
             decimal unitsInStock = Convert.ToDecimal(e.GetListSourceFieldValue("UnitsInStock"));
