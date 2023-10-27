@@ -11,22 +11,15 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <dx:ASPxGridView ID="grid" runat="server" AutoGenerateColumns="False" DataSourceID="accessDataSource"
-            KeyFieldName="ProductID" OnCustomUnboundColumnData="grid_CustomUnboundColumnData"
-            OnCustomSummaryCalculate="grid_CustomSummaryCalculate">
+        <dx:ASPxGridView ID="grid" runat="server" AutoGenerateColumns="False" DataSourceID="accessDataSource" KeyFieldName="ProductID" 
+            OnCustomUnboundColumnData="grid_CustomUnboundColumnData" OnCustomSummaryCalculate="grid_CustomSummaryCalculate">
             <Columns>
-                <dx:GridViewDataTextColumn FieldName="ProductName" VisibleIndex="1">
-                </dx:GridViewDataTextColumn>
-                <dx:GridViewDataTextColumn FieldName="CategoryID" VisibleIndex="2" GroupIndex="0">
-                </dx:GridViewDataTextColumn>
-                <dx:GridViewDataTextColumn FieldName="UnitPrice" VisibleIndex="3">
-                </dx:GridViewDataTextColumn>
-                <dx:GridViewDataTextColumn FieldName="UnitsInStock" VisibleIndex="4">
-                </dx:GridViewDataTextColumn>
-                <dx:GridViewDataTextColumn FieldName="Variance" Name="Variance" UnboundType="Decimal"
-                    VisibleIndex="5">
-                    <PropertiesTextEdit DisplayFormatString="F2">
-                    </PropertiesTextEdit>
+                <dx:GridViewDataTextColumn FieldName="ProductName" />
+                <dx:GridViewDataTextColumn FieldName="CategoryID" GroupIndex="0" />
+                <dx:GridViewDataTextColumn FieldName="UnitPrice" />
+                <dx:GridViewDataTextColumn FieldName="UnitsInStock" />
+                <dx:GridViewDataTextColumn FieldName="Variance" Name="Variance" UnboundType="Decimal">
+                    <PropertiesTextEdit DisplayFormatString="F2" />
                 </dx:GridViewDataTextColumn>
             </Columns>
             <Settings ShowFooter="True" ShowGroupPanel="true" ShowGroupFooter="VisibleIfExpanded" />
@@ -38,8 +31,7 @@
                 <dx:ASPxSummaryItem FieldName="Variance" SummaryType="Custom" DisplayFormat="F2" ShowInGroupFooterColumn="Variance" />
             </GroupSummary>
         </dx:ASPxGridView>
-        <asp:AccessDataSource ID="accessDataSource" runat="server" DataFile="~/App_Data/nwind.mdb"
-            SelectCommand="SELECT TOP 4  *  FROM [Products]"></asp:AccessDataSource>
+        <asp:AccessDataSource ID="accessDataSource" runat="server" DataFile="~/App_Data/nwind.mdb" SelectCommand="SELECT TOP 4  *  FROM [Products]" />
     </div>
     </form>
 </body>
