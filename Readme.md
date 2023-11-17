@@ -4,7 +4,7 @@
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
 
-# Grid View for ASP.NET Web Forms - How to calculate a variance for two columns and their total and group summaries
+# Grid View for ASP.NET Web Forms - How to calculate a variance of two columns, variance of a group, and total variance
 <!-- run online -->
 **[[Run Online]](https://codecentral.devexpress.com/e3115/)**
 <!-- run online end -->
@@ -28,7 +28,7 @@ protected void grid_CustomUnboundColumnData(object sender, DevExpress.Web.ASPxGr
 }
 ```
 
-The [CustomSummaryCalculate](https://docs.devexpress.com/AspNet/DevExpress.Web.ASPxGridBase.CustomSummaryCalculate) event handler calculates custom group and total summaries. The event fires for each row involved in summary calculation. When calculating the total summary value, the event is raised for each data row ('Calculate' stage), before (`Start` stage) and after (`Finalize` stage) processing rows. At the `Finalize` stage, the result total summary value is assigned to the [e.TotalValue](https://docs.devexpress.com/CoreLibraries/DevExpress.Data.CustomSummaryEventArgs.TotalValue) property.
+The [CustomSummaryCalculate](https://docs.devexpress.com/AspNet/DevExpress.Web.ASPxGridBase.CustomSummaryCalculate) event handler calculates custom group and total summaries. The event fires for each row involved in summary calculation. When calculating the total summary value, the event is raised for each data row (the `Calculate` stage), before (the `Start` stage) and after (the `Finalize` stage) processing rows. At the `Finalize` stage, the result total summary value is assigned to the [e.TotalValue](https://docs.devexpress.com/CoreLibraries/DevExpress.Data.CustomSummaryEventArgs.TotalValue) property.
 
 ```csharp
 decimal totalSumUnitPrice;
