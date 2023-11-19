@@ -27,7 +27,7 @@ protected void grid_CustomUnboundColumnData(object sender, DevExpress.Web.ASPxGr
 }
 ```
 
-The [CustomSummaryCalculate](https://docs.devexpress.com/AspNet/DevExpress.Web.ASPxGridBase.CustomSummaryCalculate) event handler calculates custom group and total summaries. The event fires for each row involved in summary calculation. When calculating the total summary value, the event is raised for each data row (the `Calculate` stage), before (the `Start` stage) and after (the `Finalize` stage) processing rows. At the `Finalize` stage, the result total summary value is assigned to the [e.TotalValue](https://docs.devexpress.com/CoreLibraries/DevExpress.Data.CustomSummaryEventArgs.TotalValue) property.
+The [CustomSummaryCalculate](https://docs.devexpress.com/AspNet/DevExpress.Web.ASPxGridBase.CustomSummaryCalculate) event handler calculates custom group and total summaries. The event fires for each row involved in summary calculation. When calculating the total summary value, the event is raised for each data row (the `Calculate` stage), before (the `Start` stage) and after (the `Finalize` stage) processing rows. At the `Finalize` stage, the resulting total summary value is assigned to the [e.TotalValue](https://docs.devexpress.com/CoreLibraries/DevExpress.Data.CustomSummaryEventArgs.TotalValue) property.
 
 ```csharp
 decimal totalSumUnitPrice;
