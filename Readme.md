@@ -1,23 +1,60 @@
 <!-- default badges list -->
-![](https://img.shields.io/endpoint?url=https://codecentral.devexpress.com/api/v1/VersionRange/128538087/13.1.4%2B)
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/E3115)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-<!-- default file list -->
-*Files to look at*:
 
-* [Default.aspx](./CS/WebSite/Default.aspx) (VB: [Default.aspx](./VB/WebSite/Default.aspx))
-* [Default.aspx.cs](./CS/WebSite/Default.aspx.cs) (VB: [Default.aspx.vb](./VB/WebSite/Default.aspx.vb))
-<!-- default file list end -->
-# How to calculate a variance for two ASPxGridView columns and their total and group summaries
+# Grid View for ASP.NET Web Forms - How to calculate a variance of two columns, variance of a group, and total variance
 <!-- run online -->
 **[[Run Online]](https://codecentral.devexpress.com/e3115/)**
 <!-- run online end -->
 
+This example demonstrates how to calculate a variance of two [ASPxGridView](https://docs.devexpress.com/AspNet/DevExpress.Web.ASPxGridView) columns, variance of a group, and total variance. 
 
-<p>The example illustrates how to calculate a variance for two ASPxGridView columns and their total and group summaries. Values of the unbound “Variance” column are calculated in the <a href="http://documentation.devexpress.com/#AspNet/DevExpressWebASPxGridViewASPxGridView_CustomUnboundColumnDatatopic"><u>CustomUnboundColumnData</u></a> event handler. Summary custom calculation rules are applied in the <a href="https://documentation.devexpress.com/#AspNet/DevExpressWebASPxGridBase_CustomSummaryCalculatetopic">CustomSummaryCalculate</a>  event handler. The <a href="https://documentation.devexpress.com/#AspNet/DevExpressWebASPxGridBase_CustomSummaryCalculatetopic">CustomSummaryCalculate</a>  event fires for each row involved in summary calculation. When calculating the total summary value, the event is raised for each data row. Additionally, the event is raised before and after processing rows. Values used in the calculation are stored in variables, that are defined outside the handler. The processing rows finalization is used to assign the result to the total summary value via the event's <a href="http://documentation.devexpress.com/#CoreLibraries/DevExpressDataCustomSummaryEventArgs_TotalValuetopic"><u>e.TotalValue</u></a> property.</p>
-<p><strong>See Also:</strong><strong><br> </strong><a href="http://documentation.devexpress.com/#AspNet/CustomDocument3762"><u>Custom Aggregate Functions</u></a></p>
+![](grid-with-variance-column.png)
 
-<br/>
+The [CustomUnboundColumnData](https://docs.devexpress.com/AspNet/DevExpress.Web.ASPxGridView.CustomUnboundColumnData) event handler calculates values of the unbound `Variance` column. 
 
+```csharp
+protected void grid_CustomUnboundColumnData(object sender, DevExpress.Web.ASPxGridViewColumnDataEventArgs e) {
+    if (e.Column.FieldName == "Variance") {
+        decimal unitPrice = Convert.ToDecimal(e.GetListSourceFieldValue("UnitPrice"));
+        decimal unitsInStock = Convert.ToDecimal(e.GetListSourceFieldValue("UnitsInStock"));
+        if (unitPrice != 0)
+            e.Value = (unitPrice - unitsInStock) / unitPrice;
+        else
+            e.Value = 0;
+    }
+}
+```
 
+The [CustomSummaryCalculate](https://docs.devexpress.com/AspNet/DevExpress.Web.ASPxGridBase.CustomSummaryCalculate) event handler calculates custom group and total summaries. The event fires for each row involved in summary calculation. When calculating the total summary value, the event is raised for each data row (the `Calculate` stage), before (the `Start` stage) and after (the `Finalize` stage) processing rows. At the `Finalize` stage, the resulting total summary value is assigned to the [e.TotalValue](https://docs.devexpress.com/CoreLibraries/DevExpress.Data.CustomSummaryEventArgs.TotalValue) property.
+
+```csharp
+decimal totalSumUnitPrice;
+decimal totalSumUnitsInStock;
+protected void grid_CustomSummaryCalculate(object sender, DevExpress.Data.CustomSummaryEventArgs e) {
+    if (e.SummaryProcess == DevExpress.Data.CustomSummaryProcess.Start) {
+        totalSumUnitPrice = 0;
+        totalSumUnitsInStock = 0;
+    }else
+    if (e.SummaryProcess == DevExpress.Data.CustomSummaryProcess.Calculate) {
+        totalSumUnitPrice += Convert.ToDecimal(e.GetValue("UnitPrice"));
+        totalSumUnitsInStock += Convert.ToDecimal(e.GetValue("UnitsInStock"));
+    }else
+    if (e.SummaryProcess == DevExpress.Data.CustomSummaryProcess.Finalize) {
+        if (totalSumUnitPrice != 0)
+            e.TotalValue = (totalSumUnitPrice - totalSumUnitsInStock) / totalSumUnitPrice;
+        else
+            e.TotalValue = 0;
+    }
+}
+```
+
+## Files to Review
+
+* [Default.aspx](./CS/WebSite/Default.aspx) (VB: [Default.aspx](./VB/WebSite/Default.aspx))
+* [Default.aspx.cs](./CS/WebSite/Default.aspx.cs) (VB: [Default.aspx.vb](./VB/WebSite/Default.aspx.vb))
+
+## Documentation
+
+* [Custom Summary](https://docs.devexpress.com/AspNet/3762/components/grid-view/concepts/use-data-summaries/custom-summary)
