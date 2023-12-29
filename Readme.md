@@ -5,9 +5,6 @@
 <!-- default badges end -->
 
 # Grid View for ASP.NET Web Forms - How to calculate a variance of two columns, variance of a group, and total variance
-<!-- run online -->
-**[[Run Online]](https://codecentral.devexpress.com/128538087/)**
-<!-- run online end -->
 
 This example demonstrates how to calculate a variance of two [ASPxGridView](https://docs.devexpress.com/AspNet/DevExpress.Web.ASPxGridView) columns, variance of a group, and total variance. 
 
